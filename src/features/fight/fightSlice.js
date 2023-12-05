@@ -4,39 +4,64 @@ const initialState = {
   players: [
     {
       name: 'John',
-      pv: 10,
+      pv: 100,
       pvMax: 100,
       status: 'alive',
-      mana: 30,
-      manaMax: 30,
+      mana: 100,
+      manaMax: 100,
       id: 1,
+      abilities: [
+        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
+        { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
+        { name: 'Ultimate', type: 'ultimate', damage: 20, manaCost: 30 },
+      ],
     },
+    
     {
       name: "Jack",
       pv: 100,
       pvMax: 100,
       status: 'alive',
-      mana: 30,
-      manaMax: 30,
-      id: 2
+      mana: 100,
+      manaMax: 100,
+      id: 2,
+      abilities: [
+        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
+        { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
+        { name: 'Ultimate', type: 'ultimate', damage: 20, manaCost: 30 },
+      ],
     },
     {
       name: "Jessy",
       pv: 100,
       pvMax: 100,
       status: 'alive',
-      mana: 30,
-      manaMax: 30,
-      id: 3
+      mana: 100,
+      manaMax: 100,
+      id: 3,
+      abilities: [
+        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
+        { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
+        { name: 'Ultimate', type: 'ultimate', damage: 20, manaCost: 30 },
+      ],
     },
     {
       name: "Jenny",
       pv: 100,
       pvMax: 100,
       status: 'alive',
-      mana: 30,
-      manaMax: 30,
-      id: 4
+      mana: 100,
+      manaMax: 100,
+      id: 4,
+      abilities: [
+        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
+        { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
+        { name: 'Ultimate', type: 'ultimate', damage: 20, manaCost: 30 },
+      ],
     }
   ],
   monster: {
@@ -57,17 +82,26 @@ export const fightSlice = createSlice({
   reducers: {
     hitMonster: (state, action) => {
       const hit = action.payload.dmg;
+      const attackingPlayerId = action.payload.attackingPlayerId;
 
-      if (action.payload.attackingPlayerId === state.currentTurnPlayerId) {
-        state.monster.pv -= hit;
-
-        if (state.monster.pv < 0) {
-          state.monster.pv = 0;
+      if (attackingPlayerId === state.currentTurnPlayerId) {
+        if (state.players[attackingPlayerId - 1].abilities.find(ability => ability.type === 'manaDrain')) {
+          // If the player has Mana Drain ability, drain mana and deal damage
+          state.players[attackingPlayerId - 1].mana += state.players[attackingPlayerId - 1].abilities.find(ability => ability.type === 'manaDrain').manaGain;
+          state.players[attackingPlayerId - 1].pv -= hit;
+        } else {
+          // If not Mana Drain ability, only deal damage
+          state.players[attackingPlayerId - 1].pv -= hit;
         }
 
-        state.lastAttackingPlayer = state.players.find(player => player.id === action.payload.attackingPlayerId);
+        if (state.players[attackingPlayerId - 1].pv < 0) {
+          state.players[attackingPlayerId - 1].pv = 0;
+        }
+
+        state.lastAttackingPlayer = state.players.find(player => player.id === attackingPlayerId);
       }
     },
+
     hitBack: (state, action) => {
       const hitBackPlayerId = action.payload.id;
       const hitBackPlayer = state.players.find(player => player.id === hitBackPlayerId);
@@ -127,6 +161,30 @@ export const fightSlice = createSlice({
     state.currentTurnPlayerId = alivePlayers[nextIndex].id;
   }
 },
+healPlayer: (state, action) => {
+  const { healAmount, playerId } = action.payload;
+  const healedPlayer = state.players.find(player => player.id === playerId);
+
+  if (healedPlayer) {
+    healedPlayer.pv += healAmount;
+
+    if (healedPlayer.pv > healedPlayer.pvMax) {
+      healedPlayer.pv = healedPlayer.pvMax;
+    }
+  }
+},
+reduceMana: (state, action) => {
+  const { manaCost, playerId } = action.payload;
+  const player = state.players.find((p) => p.id === playerId);
+
+  if (player) {
+    player.mana -= manaCost;
+
+    if (player.mana < 0) {
+      player.mana = 0;
+    }
+  }
+},
   },
 });
 
@@ -139,5 +197,7 @@ export const {
   checkVictory,
   updateMonsterStatus,
   nextTurn,
-  updateLastAttackingPlayer
+  updateLastAttackingPlayer,
+  healPlayer,
+  reduceMana,
 } = fightSlice.actions;
