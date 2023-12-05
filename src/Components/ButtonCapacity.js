@@ -28,24 +28,14 @@ const ButtonCapacity = ({ player, ability }) => {
       const attackingPlayerId = player.id;
 
       if (ability.type === 'heal') {
-        // Dispatch healing action
+       
         dispatch(healPlayer({ healAmount: ability.healAmount, playerId: attackingPlayerId }));
-      } else if (ability.type === 'manaDrain') {
-        // Dispatch Mana Drain action
-        dispatch(hitMonster({ dmg: ability.damage, attackingPlayerId }));
-        dispatch(reduceMana({ manaCost: ability.manaCost, playerId: attackingPlayerId }));
       } else {
-        // Check if the player has enough mana for the ability
-        if (ability.manaCost > player.mana) {
-          console.log("Pas assez de mana pour utiliser cette capacité.");
-          return;
-        }
-
-        // Dispatch normal attack action
+        
         dispatch(hitMonster({ dmg: ability.damage, attackingPlayerId }));
-        // Dispatch reduceMana action
-        dispatch(reduceMana({ manaCost: ability.manaCost, playerId: attackingPlayerId }));
       }
+
+      dispatch(reduceMana({ manaCost: ability.manaCost, playerId: attackingPlayerId }));
 
       dispatch(hitBack({ id: player.id }));
       dispatch(updateLastAttackingPlayer({ playerId: attackingPlayerId }));
@@ -74,7 +64,7 @@ const ButtonCapacity = ({ player, ability }) => {
 
   return (
     <div>
-      <button type="button" onClick={combat} className="btn btn-success material-tooltip-main" disabled={ability.manaCost > player.mana}>
+      <button type="button" onClick={combat} className="btn btn-success material-tooltip-main">
         {ability.name}
         <i className="fas fa-bomb"></i> {ability.damage}
         <i className="fas fa-fire-alt"></i> - {ability.manaCost}

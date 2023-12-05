@@ -83,25 +83,24 @@ export const fightSlice = createSlice({
     hitMonster: (state, action) => {
       const hit = action.payload.dmg;
       const attackingPlayerId = action.payload.attackingPlayerId;
-
-      if (attackingPlayerId === state.currentTurnPlayerId) {
-        if (state.players[attackingPlayerId - 1].abilities.find(ability => ability.type === 'manaDrain')) {
-          // If the player has Mana Drain ability, drain mana and deal damage
-          state.players[attackingPlayerId - 1].mana += state.players[attackingPlayerId - 1].abilities.find(ability => ability.type === 'manaDrain').manaGain;
-          state.players[attackingPlayerId - 1].pv -= hit;
-        } else {
-          // If not Mana Drain ability, only deal damage
-          state.players[attackingPlayerId - 1].pv -= hit;
+      const attackingPlayer = state.players.find(player => player.id === attackingPlayerId);
+    
+      if (attackingPlayer && attackingPlayer.mana >= attackingPlayer.abilities[0].manaCost) {
+       
+        state.monster.pv -= hit;
+    
+        
+        attackingPlayer.mana -= attackingPlayer.abilities[0].manaCost;
+    
+        if (state.monster.pv < 0) {
+          state.monster.pv = 0;
         }
-
-        if (state.players[attackingPlayerId - 1].pv < 0) {
-          state.players[attackingPlayerId - 1].pv = 0;
-        }
-
-        state.lastAttackingPlayer = state.players.find(player => player.id === attackingPlayerId);
+    
+        state.lastAttackingPlayer = attackingPlayer;
+      } else {
+        console.log("Pas assez de mana pour attaquer.");
       }
     },
-
     hitBack: (state, action) => {
       const hitBackPlayerId = action.payload.id;
       const hitBackPlayer = state.players.find(player => player.id === hitBackPlayerId);
