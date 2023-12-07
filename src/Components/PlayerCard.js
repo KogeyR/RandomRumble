@@ -5,10 +5,6 @@ import ProgressBar from './ProgressBar';
 const PlayerCard = (props) => {
   const { player } = props;
 
-  // Si le joueur est mort, ne rend rien
-  if (player.status === 'dead') {
-    return null;
-  }
 
   return (
     <div key={player.id} className="col-sm-3 card center" id={`joueur${player.id}`}>

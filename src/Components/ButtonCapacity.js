@@ -1,16 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  hitMonster,
-  hitBack,
-  updatePlayerStatus,
-  updateMonsterStatus,
-  checkDefeat,
-  checkVictory,
-  nextTurn,
-  updateLastAttackingPlayer,
-  healPlayer,
-  reduceMana,
+  hitMonster, hitBack,
+  updatePlayerStatus, updateMonsterStatus,
+  checkDefeat, checkVictory,
+  nextTurn, updateLastAttackingPlayer,
+  healPlayer, reduceMana,
+  HealAbility, ManaDrainAbility, UltimateAbility,
 } from '../features/fight/fightSlice';
 
 const ButtonCapacity = ({ player, ability }) => {
@@ -19,47 +15,59 @@ const ButtonCapacity = ({ player, ability }) => {
   const currentTurnPlayerId = useSelector((state) => state.fight.currentTurnPlayerId);
 
   const combat = () => {
-    if (player.status === 'alive' && player.id === currentTurnPlayerId) {
-      if (player.status === 'dead') {
-        console.log("Le joueur est mort.");
-        return;
-      }
-
-      const attackingPlayerId = player.id;
-
-      if (ability.type === 'heal') {
-       
-        dispatch(healPlayer({ healAmount: ability.healAmount, playerId: attackingPlayerId }));
-      } else {
-        
-        dispatch(hitMonster({ dmg: ability.damage, attackingPlayerId }));
-      }
-
-      dispatch(reduceMana({ manaCost: ability.manaCost, playerId: attackingPlayerId }));
-
-      dispatch(hitBack({ id: player.id }));
-      dispatch(updateLastAttackingPlayer({ playerId: attackingPlayerId }));
-      const newStatus = player.pv <= 0 ? 'dead' : 'alive';
-
-      if (newStatus === 'dead') {
-        dispatch(updatePlayerStatus({ player: player, status: newStatus }));
-        dispatch(checkDefeat());
-        console.log('joueur mort');
-      } else {
-        console.log("attaque.");
-      }
-
-      const monsterStatus = monster.pv <= 0 ? 'dead' : 'alive';
-
-      if (monsterStatus === 'dead') {
-        dispatch(updateMonsterStatus({ monster: monster, status: monsterStatus }));
-        dispatch(checkVictory());
-      }
-
-      dispatch(nextTurn());
-    } else {
+    if (player.status !== 'alive' || player.id !== currentTurnPlayerId) {
       console.log("Le joueur ne peut pas attaquer actuellement.");
+      return;
     }
+
+    if (player.status === 'dead') {
+      console.log("Le joueur est mort.");
+      return;
+    }
+
+    const attackingPlayerId = player.id;
+
+    switch (ability.type) {
+      case 'heal':
+        dispatch(HealAbility({ healAmount: ability.healAmount, playerId: attackingPlayerId }));
+        break;
+
+      case 'manaDrain':
+        dispatch(ManaDrainAbility({ playerId: attackingPlayerId }));
+        break;
+
+      case 'ultimate':
+        dispatch(UltimateAbility({ playerId: attackingPlayerId }));
+        break;
+
+      default:
+        dispatch(hitMonster({ dmg: ability.damage, attackingPlayerId }));
+        break;
+    }
+
+    dispatch(reduceMana({ manaCost: ability.manaCost, playerId: attackingPlayerId }));
+    dispatch(hitBack({ id: player.id }));
+    dispatch(updateLastAttackingPlayer({ playerId: attackingPlayerId }));
+
+    const newStatus = player.pv <= 0 ? 'dead' : 'alive';
+
+    if (newStatus === 'dead') {
+      dispatch(updatePlayerStatus({ player: player, status: newStatus }));
+      dispatch(checkDefeat());
+      console.log('joueur mort');
+    } else {
+      console.log("attaque.");
+    }
+
+    const monsterStatus = monster.pv <= 0 ? 'dead' : 'alive';
+
+    if (monsterStatus === 'dead') {
+      dispatch(updateMonsterStatus({ monster: monster, status: monsterStatus }));
+      dispatch(checkVictory());
+    }
+
+    dispatch(nextTurn());
+    console.log('Tour suivant');
   };
 
   return (
