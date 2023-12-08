@@ -1,9 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { current } from '@reduxjs/toolkit';
+import Piccolo from '../../assets/sprite/stance/Piccolo.gif' ;
+import Goku from '../../assets/sprite/stance/Goku.gif' ;
+
 const initialState = {
   players: [
     {
-      name: 'John',
+      name: 'Goku',
+      sprite: Goku,
       pv: 100,
       pvMax: 100,
       status: 'alive',
@@ -14,12 +18,12 @@ const initialState = {
         { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
         { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
-        { name: 'Ultimate', type: 'ultimate', damage: 20, manaCost: 30 },
+        { name: 'Instant Kamehameha', type: 'ultimate', damage: 20, manaCost: 30 },
       ],
     },
     
     {
-      name: "Jack",
+      name: "Gohan",
       pv: 100,
       pvMax: 100,
       status: 'alive',
@@ -30,11 +34,12 @@ const initialState = {
         { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
         { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
-        { name: 'Ultimate', type: 'ultimate', damage: 20, manaCost: 30 },
+        { name: 'True Kamehameha', type: 'ultimate', damage: 20, manaCost: 30 },
       ],
     },
     {
-      name: "Jessy",
+      name: "Piccolo",
+      sprite: Piccolo,
       pv: 100,
       pvMax: 100,
       status: 'alive',
@@ -45,11 +50,11 @@ const initialState = {
         { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
         { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
-        { name: 'Ultimate', type: 'ultimate', damage: 20, manaCost: 30 },
+        { name: 'makankosappo', type: 'ultimate', damage: 20, manaCost: 30 },
       ],
     },
     {
-      name: "Jenny",
+      name: "Vegeta",
       pv: 100,
       pvMax: 100,
       status: 'alive',
@@ -60,12 +65,12 @@ const initialState = {
         { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
         { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
-        { name: 'Ultimate', type: 'ultimate', damage: 20, manaCost: 30 },
+        { name: 'Final Flash', type: 'ultimate', damage: 20, manaCost: 30 },
       ],
     }
   ],
   monster: {
-    name: 'Monster',
+    name: 'Buu',
     pv: '800',
     pvMax: '800',
     status: 'alive',
@@ -244,7 +249,6 @@ export const fightSlice = createSlice({
     playerPlayed: (state, action) => {
       const playerId = action.payload.playerId;
 
-      // Only add the playerId if it's not already in the array
       if (!state.playersWhoPlayed.includes(playerId)) {
         state.playersWhoPlayed.push(playerId);
         console.log('Updated playersWhoPlayed:', state.playersWhoPlayed);
