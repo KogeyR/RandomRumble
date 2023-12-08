@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { current } from '@reduxjs/toolkit';
-import Piccolo from '../../assets/sprite/stance/Piccolo.gif' ;
-import Goku from '../../assets/sprite/stance/Goku.gif' ;
+import Goku from '../../assets/sprite/stance/Goku.png';
+import Gohan from '../../assets/sprite/stance/Gohan.png';
+import Piccolo from '../../assets/sprite/stance/Piccolo.png';
+import Vegeta from '../../assets/sprite/stance/Vegeta.png';
+
+
 
 const initialState = {
   players: [
@@ -24,6 +28,7 @@ const initialState = {
     
     {
       name: "Gohan",
+      sprite: Gohan,
       pv: 100,
       pvMax: 100,
       status: 'alive',
@@ -55,6 +60,7 @@ const initialState = {
     },
     {
       name: "Vegeta",
+      sprite: Vegeta,
       pv: 100,
       pvMax: 100,
       status: 'alive',
@@ -70,7 +76,7 @@ const initialState = {
     }
   ],
   monster: {
-    name: 'Buu',
+    name: 'Broly',
     pv: '800',
     pvMax: '800',
     status: 'alive',
