@@ -19,8 +19,8 @@
 }
 
 .player-image {
-  width: 100px; /* Adjust the width as needed */
-  height: auto;
+  width: 100px; 
+  height: 150px;
 }
 
 .card {
