@@ -39,26 +39,25 @@ const PlayerCard = (props) => {
         </h5>
         
         <ProgressBar pv={player.pv} pvMax={player.pvMax} faType="fa-heart" barName=" : pv " bgType="bg-danger"
-         className="custom-progress-bar" />
-        <ProgressBar pv={player.mana} pvMax={player.manaMax} faType="fa-fire-alt" barName=" : mana " bgType="bg-info"
-         className="custom-progress-bar" />
+ />
+        <ProgressBar pv={player.mana} pvMax={player.manaMax} faType="fa-fire-alt" barName=" : Ki " bgType="bg-info" />
         <span className="badge badge-danger ml-2 " id="degatSpanJ1"></span>
         
-<div className="row">
-  <div className="ButtonCapacity">
-    {player.abilities.slice(0, 2).map((ability, index) => (
-      <ButtonCapacity key={index} player={player} ability={ability} />
-    ))}
-  </div>
-  <div className="ButtonCapacity">
-    {player.abilities.slice(2).map((ability, index) => (
-      <ButtonCapacity key={index + 2} player={player} ability={ability} />
-    ))}
-  </div>
-</div>
+    <div className="row">
+      <div className="ButtonCapacity">
+        {player.abilities.slice(0, 2).map((ability, index) => (
+          <ButtonCapacity key={index} player={player} ability={ability} />
+        ))}
+      </div>
+      <div className="ButtonCapacity">
+        {player.abilities.slice(2).map((ability, index) => (
+          <ButtonCapacity key={index + 2} player={player} ability={ability} />
+        ))}
       </div>
     </div>
-  );
-};
+          </div>
+        </div>
+      );
+    };
 
 export default PlayerCard;
