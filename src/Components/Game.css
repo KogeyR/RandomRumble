@@ -19,8 +19,12 @@
 }
 
 .player-image {
-  width: 100px; 
+  width: auto; 
   height: 150px;
+}
+
+.img-fluid{
+  transform: scaleX(-1);
 }
 
 .card {
@@ -51,13 +55,6 @@
   margin-bottom: 5px;
 }
 
-@keyframes shakeAnimation {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-5px, 0); }
-  50% { transform: translate(5px, 0); }
-  75% { transform: translate(-5px, 0); }
-  100% { transform: translate(5px, 0); }
-}
 
 
 .damage-animation {
@@ -66,6 +63,14 @@
 
 .shake {
   animation: shakeAnimation 0.5s ease-in-out;
+}
+
+@keyframes shakeAnimation {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-5px, 0); }
+  50% { transform: translate(5px, 0); }
+  75% { transform: translate(-5px, 0); }
+  100% { transform: translate(5px, 0); }
 }
 
 .App-header {
@@ -154,4 +159,14 @@ font-size: 30;
   background-color: #ff3547 !important;
   height: 100%;
   }
+
+
+/* .hidden-video {
+  display: none; 
+}
+
+.hidden {
+  display: none;
+} */
+
   

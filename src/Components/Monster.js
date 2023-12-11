@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ProgressBar from './ProgressBar';
 import { useSelector } from 'react-redux';
-import Broly from '../assets/sprite/stance/Broly.png';
+import Broly from '../assets/sprite/stance/Broly.gif';
+import Scream from '../assets/sprite/BossAttack/BrolyScream.mp4';
 
 const Monster = () => {
   const monster = useSelector((state) => state.fight.monster);
+  const [showVideo, setShowVideo] = useState(false);
+
+  useEffect(() => {
+    if (monster.pv <= monster.pvMax / 2 && !showVideo) {
+      setShowVideo(true);
+    }
+  }, [monster, showVideo]);
+
+  const handleVideoEnd = () => {
+    setShowVideo(false);
+  };
 
   return (
     <section>
@@ -25,6 +37,17 @@ const Monster = () => {
                 </div>
               </div>
               <ProgressBar pv={monster.pv} pvMax={monster.pvMax} bgType="bg-danger" faType="fa-heart" barName=" : pv" />
+              {showVideo && (
+                <video
+                  className="hidden-video"
+                  onEnded={handleVideoEnd}
+                  src={Scream}
+                  autoPlay
+                  type="video/mp4"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              )}
             </div>
           </div>
         </div>

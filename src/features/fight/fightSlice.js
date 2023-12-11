@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { current } from '@reduxjs/toolkit';
-import Goku from '../../assets/sprite/stance/Goku.png';
-import Gohan from '../../assets/sprite/stance/Gohan.png';
-import Piccolo from '../../assets/sprite/stance/Piccolo.png';
-import Vegeta from '../../assets/sprite/stance/Vegeta.png';
+import Goku from '../../assets/sprite/stance/Goku.gif';
+import Gohan from '../../assets/sprite/stance/Gohan.gif';
+import Piccolo from '../../assets/sprite/stance/Piccolo.gif';
+import Vegeta from '../../assets/sprite/stance/Vegeta.gif';
 
 
 
@@ -19,7 +19,7 @@ const initialState = {
       manaMax: 100,
       id: 1,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Attaque', type: 'damage', damage: 100, manaCost: 0 },
         { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
         { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
         { name: 'Instant Kamehameha', type: 'ultimate', damage: 20, manaCost: 30 },
@@ -36,7 +36,7 @@ const initialState = {
       manaMax: 100,
       id: 2,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Attaque', type: 'damage', damage: 100, manaCost: 0 },
         { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
         { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
         { name: 'True Kamehameha', type: 'ultimate', damage: 20, manaCost: 30 },
@@ -52,7 +52,7 @@ const initialState = {
       manaMax: 100,
       id: 3,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Attaque', type: 'damage', damage: 100, manaCost: 0 },
         { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
         { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
         { name: 'makankosappo', type: 'ultimate', damage: 20, manaCost: 30 },
@@ -68,7 +68,7 @@ const initialState = {
       manaMax: 100,
       id: 4,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Attaque', type: 'damage', damage: 100, manaCost: 0 },
         { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
         { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
         { name: 'Final Flash', type: 'ultimate', damage: 20, manaCost: 30 },
