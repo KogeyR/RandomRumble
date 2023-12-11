@@ -38,8 +38,7 @@ const PlayerCard = (props) => {
           {player.name}
         </h5>
         
-        <ProgressBar pv={player.pv} pvMax={player.pvMax} faType="fa-heart" barName=" : pv " bgType="bg-danger"
- />
+        <ProgressBar pv={player.pv} pvMax={player.pvMax} faType="fa-heart" barName=" : pv " bgType="bg-danger"/>
         <ProgressBar pv={player.mana} pvMax={player.manaMax} faType="fa-fire-alt" barName=" : Ki " bgType="bg-info" />
         <span className="badge badge-danger ml-2 " id="degatSpanJ1"></span>
         
