@@ -161,12 +161,18 @@ font-size: 30;
   }
 
 
-/* .hidden-video {
-  display: none; 
+/* Monster.css */
+
+.hidden-video {
+  display: none;
+}
+
+.visible {
+  display: block;
 }
 
 .hidden {
   display: none;
-} */
+}
 
   

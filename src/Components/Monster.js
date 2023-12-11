@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProgressBar from './ProgressBar';
 import { useSelector } from 'react-redux';
 import Broly from '../assets/sprite/stance/Broly.gif';
@@ -15,7 +15,11 @@ const Monster = () => {
   }, [monster, showVideo]);
 
   const handleVideoEnd = () => {
-    setShowVideo(false);
+    // Ne définissez pas setShowVideo(false) ici
+    const videoElement = document.querySelector('.hidden-video');
+    if (videoElement) {
+      videoElement.classList.add('hidden');
+    }
   };
 
   return (
@@ -37,17 +41,15 @@ const Monster = () => {
                 </div>
               </div>
               <ProgressBar pv={monster.pv} pvMax={monster.pvMax} bgType="bg-danger" faType="fa-heart" barName=" : pv" />
-              {showVideo && (
-                <video
-                  className="hidden-video"
-                  onEnded={handleVideoEnd}
-                  src={Scream}
-                  autoPlay
-                  type="video/mp4"
-                >
-                  Your browser does not support the video tag.
-                </video>
-              )}
+              <video
+                className={`hidden-video ${showVideo ? 'visible' : 'hidden'}`}
+                onEnded={handleVideoEnd}
+                src={Scream}
+                autoPlay
+                type="video/mp4"
+              >
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
         </div>
