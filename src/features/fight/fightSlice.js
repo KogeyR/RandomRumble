@@ -80,7 +80,10 @@ const initialState = {
     pv: '800',
     pvMax: '800',
     status: 'alive',
-    specialAttack: [{name: 'Special Attack', type: 'damage', damage: 10}],
+    specialAttack: [
+      {name: 'Special Attack', type: 'damage', damage: 15},
+      {name: 'Gigantic Roar', type: 'damage', damage: 25}  
+    ],
   },
   playersWhoPlayed: [],
   DeadPlayers: [],
@@ -214,6 +217,24 @@ export const fightSlice = createSlice({
         console.log(`Monster used special attack on ${targetPlayer.name}! Damage: ${specialAttackDamage}`);
       }
     },
+
+    GiganticRoar: (state) => {
+      const monster = state.monster;
+
+      if (monster.status === 'alive' && monster.specialAttack) {
+        state.players = state.players.map((targetPlayer) => {
+          const specialAttackDamage = monster.specialAttack[1].damage;
+          const updatedPlayer = {
+            ...targetPlayer,
+            pv: Math.max(targetPlayer.pv - specialAttackDamage, 0),
+          };
+    
+          console.log(`Monster used Gigantic Roar on ${updatedPlayer.name}! Damage: ${specialAttackDamage}`);
+    
+          return updatedPlayer;
+        });
+      }
+    },
     
     updatePlayerStatus: (state, action) => {
       const player = action.payload.player;
@@ -309,7 +330,8 @@ export const {
   playerPlayed,
   MonsterSpecials,
   resetPlayersWhoPlayed,
-  toggleCheckbox
+  toggleCheckbox,
+  GiganticRoar
 } = fightSlice.actions;
 
 
