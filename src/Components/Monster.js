@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ProgressBar from './ProgressBar';
 import { useSelector } from 'react-redux';
 import Broly from '../assets/sprite/stance/Broly.gif';
@@ -7,15 +7,27 @@ import Scream from '../assets/sprite/BossAttack/BrolyScream.mp4';
 const Monster = () => {
   const monster = useSelector((state) => state.fight.monster);
   const [showVideo, setShowVideo] = useState(false);
+  const health = useRef(0);
+  const [blinkClass, setBlinkClass] = useState('');
+  let isTakingDamage = false;
 
   useEffect(() => {
     if (monster.pv <= monster.pvMax / 2 && !showVideo) {
       setShowVideo(true);
     }
+
+    if (health.current > monster.pv) {
+      isTakingDamage = true;
+      setBlinkClass('blink');
+      const timeoutId = setTimeout(() => {
+        setBlinkClass('');
+      }, 500);
+    }
+
+    health.current = monster.pv;
   }, [monster, showVideo]);
 
   const handleVideoEnd = () => {
-    // Ne définissez pas setShowVideo(false) ici
     const videoElement = document.querySelector('.hidden-video');
     if (videoElement) {
       videoElement.classList.add('hidden');
@@ -32,7 +44,7 @@ const Monster = () => {
                 <div className="row align-items-center">
                   <div className="col-sm-2 offset-sm-3">
                     <span className="badge badge-danger ml-2 " id="degatSpanMonster"></span>
-                    <img className="img-fluid" src={Broly} alt="monster" />
+                    <img className={`img-fluid ${blinkClass}`} src={Broly} alt="monster" />
                   </div>
                   <div className="col-sm-4">
                     <div>{monster.name}</div>

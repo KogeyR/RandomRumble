@@ -19,10 +19,10 @@ const initialState = {
       manaMax: 100,
       id: 1,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 100, manaCost: 0 },
-        { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
-        { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
-        { name: 'Instant Kamehameha', type: 'ultimate', damage: 20, manaCost: 30 },
+        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Soaring Fist', type: 'strike', damage: 25, manaCost : 20},
+        { name: 'Ki Charge', type: 'manaDrain', manaGain: 30, },
+        { name: 'Instant Kamehameha', type: 'ultimate', damage: 40, manaCost: 30 },
       ],
     },
     
@@ -36,10 +36,10 @@ const initialState = {
       manaMax: 100,
       id: 2,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 100, manaCost: 0 },
-        { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
-        { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
-        { name: 'True Kamehameha', type: 'ultimate', damage: 20, manaCost: 30 },
+        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Dragon Strike', type: 'strike', damage: 20, manaCost: 20 },
+        { name: 'Ki Charge', type: 'manaDrain', manaGain: 30,  },
+        { name: 'True Kamehameha', type: 'ultimate', damage: 40, manaCost: 30 },
       ],
     },
     {
@@ -52,10 +52,10 @@ const initialState = {
       manaMax: 100,
       id: 3,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 100, manaCost: 0 },
-        { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
-        { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
-        { name: 'makankosappo', type: 'ultimate', damage: 20, manaCost: 30 },
+        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Senzu Bean', type: 'heal', healAmount: 30,  },
+        { name: 'Ki Charge', type: 'manaDrain', manaGain: 30, },
+        { name: 'makankosappo', type: 'ultimate', damage: 35, manaCost: 30 },
       ],
     },
     {
@@ -68,10 +68,10 @@ const initialState = {
       manaMax: 100,
       id: 4,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 100, manaCost: 0 },
-        { name: 'Soin', type: 'heal', healAmount: 20, manaCost: 20 },
-        { name: 'Mana Drain', type: 'manaDrain', damage: 10, manaGain: 10, manaCost: 0 },
-        { name: 'Final Flash', type: 'ultimate', damage: 20, manaCost: 30 },
+        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Genocide Breaker', type: 'strike', damage: 20, manaCost: 20 },
+        { name: 'Ki Charge', type: 'manaDrain', manaGain: 30, },
+        { name: 'Final Flash', type: 'ultimate', damage: 40, manaCost: 30 },
       ],
     }
   ],
@@ -86,6 +86,10 @@ const initialState = {
   DeadPlayers: [],
   lastAttackingPlayer: null,
   currentTurnPlayerId: 1,
+  radar: {
+    isChecked: false,
+   
+  },
 };
 
 export const fightSlice = createSlice({
@@ -105,42 +109,54 @@ export const fightSlice = createSlice({
         if (state.monster.pv < 0) {
           state.monster.pv = 0;
         }
-
         state.lastAttackingPlayer = attackingPlayer;
       } else {
         console.log("Pas assez de mana pour attaquer ou joueur non trouvé.");
       }
     },
+
     HealAbility: (state, action) => {
       const { playerId } = action.payload;
       const player = state.players.find((p) => p.id === playerId);
 
-      if (player && player.mana >= player.abilities[1].manaCost) {
-        player.pv += player.abilities[1].healAmount;
-        player.mana -= player.abilities[1].manaCost;
-        player.pv = Math.min(player.pv, player.pvMax);
+      if (!state.healAbilityUsed && player) {
+        state.healAbilityUsed = true;
+
+        state.players.forEach((p) => {
+          p.pv += player.abilities[1].healAmount;
+          p.pv = Math.min(p.pv, p.pvMax);
+        });
       } else {
-        console.log("Pas assez de mana pour utiliser la capacité de soin ou joueur non trouvé.");
+        console.log("Capacité de soin déjà utilisée ou joueur non trouvé.");
       }
     },
 
-    ManaDrainAbility: (state, action) => {
+    KiChargeAbility: (state, action) => {
+      const { playerId } = action.payload;
+      const player = state.players.find((p) => p.id === playerId);
+
+      if (player) {
+        player.mana += player.abilities[2].manaGain;
+      } else {
+        console.log("Joueur non trouvé.");
+      }
+    },
+
+    getSecondAbility: (state, action) => {
+    
       const { playerId } = action.payload;
       const player = state.players.find((p) => p.id === playerId);
     
-      if (player && player.mana >= player.abilities[2].manaCost) {
-        player.mana += 20;
-    
-        player.pv -= 20;
-    
-        player.mana -= player.abilities[2].manaCost;
-    
-        player.pv = Math.max(player.pv, 0);
-      } else {
-        console.log("Pas assez de mana pour utiliser la capacité de drain de mana ou joueur non trouvé.");
+      if (player && player.mana >= player.abilities[1].manaCost) {
+        
+        state.monster.pv -= player.abilities[3].damage;
+        player.mana -= player.abilities[1].manaCost;
+               
+        state.monster.pv = Math.max(state.monster.pv, 0);
       }
     },
     
+   
 
     UltimateAbility: (state, action) => {
       const { playerId } = action.payload;
@@ -234,11 +250,13 @@ export const fightSlice = createSlice({
         console.log('Vous avez gagné !');
       }
     },
+
     updateLastAttackingPlayer: (state, action) => {
       const playerId = action.payload.playerId;
       state.lastAttackingPlayer = state.players.find(player => player.id === playerId);
       console.log(action.payload.playerId);
     },
+
     nextTurn: (state) => {
       const alivePlayers = state.players.filter(player => player.status === 'alive');
 
@@ -257,15 +275,15 @@ export const fightSlice = createSlice({
 
       if (!state.playersWhoPlayed.includes(playerId)) {
         state.playersWhoPlayed.push(playerId);
-        console.log('Updated playersWhoPlayed:', state.playersWhoPlayed);
-        console.log(current(state));
+       
       }
     },
 
     resetPlayersWhoPlayed: (state) => {
       state.playersWhoPlayed = [];
-      console.log('PlayersWhoPlayed has been reset.');
+
     },
+
 
   },
 });
@@ -285,11 +303,13 @@ export const {
   endTurn,
   specialAttackMonster, 
   HealAbility,
-  ManaDrainAbility,
+  getSecondAbility,
+  KiChargeAbility,
   UltimateAbility,
   playerPlayed,
   MonsterSpecials,
-  resetPlayersWhoPlayed
+  resetPlayersWhoPlayed,
+  toggleCheckbox
 } = fightSlice.actions;
 
 

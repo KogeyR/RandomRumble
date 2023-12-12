@@ -19,24 +19,30 @@
 }
 
 .player-image {
-  width: auto; 
+  width: auto;
   height: 150px;
 }
 
-.img-fluid{
+.img-fluid {
   transform: scaleX(-1);
 }
 
 .card {
-  width: 300px; 
-  margin: 0.25rem; 
+  width: 300px;
+  margin: 0.25rem;
 }
-
 
 .card-body {
   flex-direction: column;
   align-items: center;
-  
+}
+
+.ButtonCapacity1,
+.ButtonCapacity2 {
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px; 
+  margin-bottom: 10px;
 }
 
 .row {
@@ -45,17 +51,15 @@
   justify-content: space-around;
 }
 
-
 .row::after {
   content: "";
   display: table;
   clear: both;
 }
+
 .btn {
   margin-bottom: 5px;
 }
-
-
 
 .damage-animation {
   animation: shakeAnimation 1s ease-in-out;
@@ -66,11 +70,21 @@
 }
 
 @keyframes shakeAnimation {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-5px, 0); }
-  50% { transform: translate(5px, 0); }
-  75% { transform: translate(-5px, 0); }
-  100% { transform: translate(5px, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-5px, 0);
+  }
+  50% {
+    transform: translate(5px, 0);
+  }
+  75% {
+    transform: translate(-5px, 0);
+  }
+  100% {
+    transform: translate(5px, 0);
+  }
 }
 
 .App-header {
@@ -97,7 +111,7 @@
   }
 }
 
-.fa-fire-alt{
+.fa-fire-alt {
   color: #0044ff;
 }
 
@@ -105,19 +119,20 @@
   color: rgb(255, 0, 0);
 }
 
-.manaShow{
-color: #9fddfa;
+.manaShow {
+  color: #9fddfa;
 }
 
-.icon-text{
-color: white;
+.icon-text {
+  color: white;
 }
 
 .healShow {
-color: rgb(246, 191, 191);
+  color: rgb(246, 191, 191);
 }
-.btn{
-padding: 0.1em 0.2rem !important ;
+
+.btn {
+  padding: 0.1em 0.2rem !important;
 }
 
 .fa-bomb {
@@ -127,13 +142,14 @@ padding: 0.1em 0.2rem !important ;
 body {
   background-color: #232323;
 }
-.selected{
+
+.selected {
   background-color: #212121;
 }
 
 .badge-danger {
-position: absolute;
-font-size: 30;
+  position: absolute;
+  font-size: 30;
 }
 
 .custom-progress-bar {
@@ -151,17 +167,16 @@ font-size: 30;
   text-align: center;
   white-space: nowrap;
   background-color: #007bff;
-  transition: width .6s ease;
+  transition: width 0.6s ease;
   height: 100%;
-  }
-  
-  .bg-danger {
+}
+
+.bg-danger {
   background-color: #ff3547 !important;
   height: 100%;
-  }
+}
 
-
-/* Monster.css */
+/* Monster */
 
 .hidden-video {
   display: none;
@@ -175,4 +190,25 @@ font-size: 30;
   display: none;
 }
 
-  
+@keyframes shakeAndBlinkAnimation {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(-5px, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(5px, 0);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(-5px, 0);
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: shakeAndBlinkAnimation 1s infinite;
+}

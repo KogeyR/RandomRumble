@@ -23,7 +23,7 @@ const PlayerCard = (props) => {
       }, 500);
     }
   
-    // Mettez à jour health.current après l'utilisation
+   
     health.current = currentPlayer.pv;
   }, [AfterPv]);
   
@@ -43,16 +43,22 @@ const PlayerCard = (props) => {
         <ProgressBar pv={player.mana} pvMax={player.manaMax} faType="fa-fire-alt" barName=" : Ki " bgType="bg-info" />
         <span className="badge badge-danger ml-2 " id="degatSpanJ1"></span>
 
+
+
         <div className="row">
-          <div className="ButtonCapacity">
-            {player.abilities.slice(0, 2).map((ability, index) => (
-              <ButtonCapacity key={index} player={player} ability={ability} />
-            ))}
+          <div className="col-6">
+            <div className="ButtonCapacity1">
+              {player.abilities.slice(0, 2).map((ability, index) => (
+                <ButtonCapacity key={index} player={player} ability={ability} />
+              ))}
+            </div>
           </div>
-          <div className="ButtonCapacity">
-            {player.abilities.slice(2).map((ability, index) => (
-              <ButtonCapacity key={index + 2} player={player} ability={ability} />
-            ))}
+          <div className="col-6"> 
+            <div className="ButtonCapacity2">
+              {player.abilities.slice(2).map((ability, index) => (
+                <ButtonCapacity key={index + 2} player={player} ability={ability} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

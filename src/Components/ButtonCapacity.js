@@ -5,8 +5,9 @@ import {
   updatePlayerStatus, updateMonsterStatus,
   checkDefeat, checkVictory,
   nextTurn, updateLastAttackingPlayer,
-  HealAbility, ManaDrainAbility, UltimateAbility,
-  playerPlayed,MonsterSpecials,resetPlayersWhoPlayed
+  HealAbility,KiChargeAbility, UltimateAbility,
+  playerPlayed,MonsterSpecials,resetPlayersWhoPlayed,
+  getSecondAbility,
 } from '../features/fight/fightSlice';
 
 const ButtonCapacity = ({ player, ability }) => {
@@ -31,21 +32,26 @@ const ButtonCapacity = ({ player, ability }) => {
     switch (ability.type) {
       case 'heal':
         dispatch(HealAbility({ healAmount: ability.healAmount, playerId: attackingPlayerId }));
+        
         break;
-
+    
       case 'manaDrain':
-        dispatch(ManaDrainAbility({ playerId: attackingPlayerId }));
+        dispatch(KiChargeAbility({ playerId: attackingPlayerId }));
         break;
 
+        case 'strike':
+          dispatch(getSecondAbility({ playerId: attackingPlayerId }));
+          break;
+    
       case 'ultimate':
         dispatch(UltimateAbility({ playerId: attackingPlayerId }));
         break;
-
+    
+    
       default:
         dispatch(hitMonster({ dmg: ability.damage, attackingPlayerId }));
         break;
     }
-
     dispatch(hitBack({ id: player.id }));
     dispatch(updateLastAttackingPlayer({ playerId: attackingPlayerId }));
 
