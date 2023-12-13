@@ -152,7 +152,7 @@ export const fightSlice = createSlice({
     
       if (player && player.mana >= player.abilities[1].manaCost) {
         
-        state.monster.pv -= player.abilities[3].damage;
+        state.monster.pv -= player.abilities[1].damage;
         player.mana -= player.abilities[1].manaCost;
                
         state.monster.pv = Math.max(state.monster.pv, 0);
