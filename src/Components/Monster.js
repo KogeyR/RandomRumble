@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Broly from '../assets/sprite/stance/Broly.gif';
 import Scream from '../assets/sprite/BossAttack/BrolyScream.mp4';
 import { GiganticRoar } from '../features/fight/fightSlice';
-import Stage from '../assets/stage.png';
+
 
 const Monster = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Monster = () => {
   const [showVideo, setShowVideo] = useState(false);
   const health = useRef(0);
   const [blinkClass, setBlinkClass] = useState('');
-  const [backgroundImage] = useState(Stage);
+  
 
   useEffect(() => {
     if (monster.pv <= monster.pvMax / 2 && !showVideo) {
@@ -38,17 +38,13 @@ const Monster = () => {
   };
 
   return (
-    <section style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', width: '100%', padding: '20px' }}>
+    <section >
       <div className="container">
         <div className="row">
           <div className="card-monstre col-sm-12" style={{ padding: '20px' }}>
             <div id="monsterCard">
               <div className="text-center">
                 <div className="row align-items-center">
-                  <div className="col-sm-4">
-                    <div>{monster.name}</div>
-                    <div id="comboOnMonster"></div>
-                  </div>
                   <div className="col-sm-2 offset-sm-3">
                     <span className="badge badge-danger ml-2 " id="degatSpanMonster"></span>
                     <img className={`img-fluid ${blinkClass}`} src={Broly} alt="monster" />
@@ -61,7 +57,6 @@ const Monster = () => {
                 onEnded={handleVideoEnd}
                 src={Scream}
                 autoPlay
-                loop
                 type="video/mp4"
               >
                 Your browser does not support the video tag.

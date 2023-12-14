@@ -7,7 +7,7 @@ import {
   nextTurn, updateLastAttackingPlayer,
   HealAbility,KiChargeAbility, UltimateAbility,
   playerPlayed,MonsterSpecials,resetPlayersWhoPlayed,
-  getSecondAbility,
+  getSecondAbility,setActionMessage,clearActionMessage
 } from '../features/fight/fightSlice';
 
 const ButtonCapacity = ({ player, ability }) => {
@@ -82,16 +82,22 @@ const ButtonCapacity = ({ player, ability }) => {
       dispatch(resetPlayersWhoPlayed());
     }
 
+
   };
 
   return (
-    <div>
-      <button type="button" onClick={combat} className="btn btn-success material-tooltip-main">
-        {ability.name}
-        <i className="fas fa-bomb"></i> {ability.damage}
-        <i className="fas fa-fire-alt"></i> - {ability.manaCost}
-      </button>
+    <div className="row">
+    <div className="col-12">
+      <div className="btn-container">
+        <button type="button" onClick={combat} className="btn btn-warning material-tooltip-main">
+          <span className="ability-name">{ability.name}</span>
+          <i className="fa-solid fa-hand-fist"></i> <br></br>dmg: {ability.damage}
+          <i className="fas fa-fire-alt"></i> manaCost: {ability.manaCost}
+        </button>
+      </div>
     </div>
+  </div>
+     
   );
 };
 

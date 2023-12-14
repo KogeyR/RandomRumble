@@ -19,9 +19,9 @@ const initialState = {
       manaMax: 100,
       id: 1,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Quick Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Soaring Fist', type: 'strike', damage: 25, manaCost : 20},
-        { name: 'Ki Charge', type: 'manaDrain', manaGain: 30, },
+        { name: 'Advanced Charge', type: 'manaDrain', manaGain: 30, },
         { name: 'Instant Kamehameha', type: 'ultimate', damage: 40, manaCost: 30 },
       ],
     },
@@ -36,9 +36,9 @@ const initialState = {
       manaMax: 100,
       id: 2,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Quick Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Dragon Strike', type: 'strike', damage: 20, manaCost: 20 },
-        { name: 'Ki Charge', type: 'manaDrain', manaGain: 30,  },
+        { name: 'Advanced Charge', type: 'manaDrain', manaGain: 30,  },
         { name: 'True Kamehameha', type: 'ultimate', damage: 40, manaCost: 30 },
       ],
     },
@@ -52,9 +52,9 @@ const initialState = {
       manaMax: 100,
       id: 3,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Quick Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Senzu Bean', type: 'heal', healAmount: 30,  },
-        { name: 'Ki Charge', type: 'manaDrain', manaGain: 30, },
+        { name: 'Advanced Charge', type: 'manaDrain', manaGain: 30, },
         { name: 'makankosappo', type: 'ultimate', damage: 35, manaCost: 30 },
       ],
     },
@@ -68,9 +68,9 @@ const initialState = {
       manaMax: 100,
       id: 4,
       abilities: [
-        { name: 'Attaque', type: 'damage', damage: 5, manaCost: 0 },
+        { name: 'Quick Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Genocide Breaker', type: 'strike', damage: 20, manaCost: 20 },
-        { name: 'Ki Charge', type: 'manaDrain', manaGain: 30, },
+        { name: 'Advanced Charge', type: 'manaDrain', manaGain: 30, },
         { name: 'Final Flash', type: 'ultimate', damage: 40, manaCost: 30 },
       ],
     }
@@ -89,10 +89,7 @@ const initialState = {
   DeadPlayers: [],
   lastAttackingPlayer: null,
   currentTurnPlayerId: 1,
-  radar: {
-    isChecked: false,
-   
-  },
+  actionMessage: '',
 };
 
 export const fightSlice = createSlice({
@@ -305,6 +302,13 @@ export const fightSlice = createSlice({
 
     },
 
+    setActionMessage: (state, action) => {
+      state.actionMessage = action.payload;
+    },
+
+    clearActionMessage: (state) => {
+      state.actionMessage = '';
+    },
 
   },
 });
@@ -331,7 +335,10 @@ export const {
   MonsterSpecials,
   resetPlayersWhoPlayed,
   toggleCheckbox,
-  GiganticRoar
+  GiganticRoar,
+  setActionMessage,
+  clearActionMessage
+
 } = fightSlice.actions;
 
 
