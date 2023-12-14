@@ -77,7 +77,7 @@ const initialState = {
   ],
   monster: {
     name: 'Broly',
-    pv: '800',
+    pv: '10',
     pvMax: '800',
     status: 'alive',
     specialAttack: [
@@ -264,7 +264,7 @@ export const fightSlice = createSlice({
       }
     },
     checkVictory: (state) => {
-      const monsterDead = state.monster.status === 'dead';
+      const monsterDead = state.monster.pv <= 0;
 
       if (monsterDead) {
         state.victoryMessage = "Vous avez gagné !";

@@ -64,13 +64,8 @@ const ButtonCapacity = ({ player, ability }) => {
     } else {
       console.log("attaque.");
     }
-
-    const monsterStatus = monster.pv <= 0 ? 'dead' : 'alive';
-
-    if (monsterStatus === 'dead') {
-      dispatch(updateMonsterStatus({ monster: monster, status: monsterStatus }));
+      
       dispatch(checkVictory());
-    }
 
     dispatch(playerPlayed({ playerId: attackingPlayerId }));
     dispatch(nextTurn());

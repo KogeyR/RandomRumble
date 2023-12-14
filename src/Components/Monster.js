@@ -43,7 +43,6 @@ const Monster = () => {
             <div id="monsterCard">
               <div className="text-center">
                 <div className="row align-items-center">
-                  {/* Adjusted offset to center the image */}
                   <div className="col-sm-6 offset-sm-3">
                     <span className="badge badge-danger ml-2 " id="degatSpanMonster"></span>
                     <img className={`img-fluid ${blinkClass}`} src={Broly} alt="monster" />
