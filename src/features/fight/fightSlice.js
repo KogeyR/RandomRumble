@@ -55,7 +55,7 @@ const initialState = {
         { name: 'Quick Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Senzu Bean', type: 'heal', healAmount: 30,  },
         { name: 'Ki Busrt', type: 'manaDrain', manaGain: 30, },
-        { name: 'makankosappo', type: 'ultimate', damage: 35, manaCost: 30 },
+        { name: 'makankosappo', type: 'ultimate', damage: 45, manaCost: 30 },
       ],
     },
     {
@@ -77,7 +77,7 @@ const initialState = {
   ],
   monster: {
     name: 'Broly',
-    pv: '10',
+    pv: '800',
     pvMax: '800',
     status: 'alive',
     specialAttack: [
@@ -263,6 +263,7 @@ export const fightSlice = createSlice({
         state.defeatMessage = "Vous avez perdu !";
       }
     },
+
     checkVictory: (state) => {
       const monsterDead = state.monster.pv <= 0;
 
