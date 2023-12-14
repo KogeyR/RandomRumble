@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   hitMonster, hitBack,
-  updatePlayerStatus, updateMonsterStatus,
+  updatePlayerStatus,
   checkDefeat, checkVictory,
   nextTurn, updateLastAttackingPlayer,
   HealAbility, KiChargeAbility, UltimateAbility,
