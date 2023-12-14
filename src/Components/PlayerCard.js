@@ -44,7 +44,6 @@ const PlayerCard = (props) => {
         <span className="badge badge-danger ml-2 " id="degatSpanJ1"></span>
 
 
-
         <div className="row">
           <div className="col-6">
             <div className="ButtonCapacity1">
