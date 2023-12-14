@@ -186,11 +186,12 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  width: 80%; /* ajustez la largeur selon vos besoins */
-  height: auto; /* ajustez la hauteur selon vos besoins */
-  border: 2px solid #fff; /* ajout d'une bordure blanche de 2px */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* ajout d'une ombre légère */
-  background-color: #000; /* couleur de fond noire */
+  width: 80%;
+  height: auto; 
+  border: 2px solid #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  background-color: #000; 
 }
 
 

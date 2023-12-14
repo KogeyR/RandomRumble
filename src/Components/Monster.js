@@ -61,6 +61,7 @@ const Monster = () => {
                 onEnded={handleVideoEnd}
                 src={Scream}
                 autoPlay
+                loop
                 type="video/mp4"
               >
                 Your browser does not support the video tag.
