@@ -21,7 +21,7 @@ const initialState = {
       abilities: [
         { name: 'Quick Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Soaring Fist', type: 'strike', damage: 25, manaCost : 20},
-        { name: 'Advanced Charge', type: 'manaDrain', manaGain: 30, },
+        { name: 'Ki Busrt', type: 'manaDrain', manaGain: 30, },
         { name: 'Instant Kamehameha', type: 'ultimate', damage: 40, manaCost: 30 },
       ],
     },
@@ -38,7 +38,7 @@ const initialState = {
       abilities: [
         { name: 'Quick Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Dragon Strike', type: 'strike', damage: 20, manaCost: 20 },
-        { name: 'Advanced Charge', type: 'manaDrain', manaGain: 30,  },
+        { name: 'Ki Busrt', type: 'manaDrain', manaGain: 30,  },
         { name: 'True Kamehameha', type: 'ultimate', damage: 40, manaCost: 30 },
       ],
     },
@@ -54,7 +54,7 @@ const initialState = {
       abilities: [
         { name: 'Quick Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Senzu Bean', type: 'heal', healAmount: 30,  },
-        { name: 'Advanced Charge', type: 'manaDrain', manaGain: 30, },
+        { name: 'Ki Busrt', type: 'manaDrain', manaGain: 30, },
         { name: 'makankosappo', type: 'ultimate', damage: 35, manaCost: 30 },
       ],
     },
@@ -70,7 +70,7 @@ const initialState = {
       abilities: [
         { name: 'Quick Attaque', type: 'damage', damage: 5, manaCost: 0 },
         { name: 'Genocide Breaker', type: 'strike', damage: 20, manaCost: 20 },
-        { name: 'Advanced Charge', type: 'manaDrain', manaGain: 30, },
+        { name: 'Ki Burst ', type: 'manaDrain', manaGain: 30, },
         { name: 'Final Flash', type: 'ultimate', damage: 40, manaCost: 30 },
       ],
     }
@@ -90,6 +90,7 @@ const initialState = {
   lastAttackingPlayer: null,
   currentTurnPlayerId: 1,
   actionMessage: '',
+  damageTaken: null,
 };
 
 export const fightSlice = createSlice({
@@ -110,6 +111,8 @@ export const fightSlice = createSlice({
           state.monster.pv = 0;
         }
         state.lastAttackingPlayer = attackingPlayer;
+
+        state.damageTaken = hit;
       } else {
         console.log("Pas assez de mana pour attaquer ou joueur non trouvé.");
       }

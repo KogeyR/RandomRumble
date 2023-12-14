@@ -7,7 +7,7 @@ import {
   nextTurn, updateLastAttackingPlayer,
   HealAbility,KiChargeAbility, UltimateAbility,
   playerPlayed,MonsterSpecials,resetPlayersWhoPlayed,
-  getSecondAbility,setActionMessage,clearActionMessage
+  getSecondAbility,
 } from '../features/fight/fightSlice';
 
 const ButtonCapacity = ({ player, ability }) => {

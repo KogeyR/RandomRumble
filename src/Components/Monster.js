@@ -5,14 +5,12 @@ import Broly from '../assets/sprite/stance/Broly.gif';
 import Scream from '../assets/sprite/BossAttack/BrolyScream.mp4';
 import { GiganticRoar } from '../features/fight/fightSlice';
 
-
 const Monster = () => {
   const dispatch = useDispatch();
   const monster = useSelector((state) => state.fight.monster);
   const [showVideo, setShowVideo] = useState(false);
   const health = useRef(0);
   const [blinkClass, setBlinkClass] = useState('');
-  
 
   useEffect(() => {
     if (monster.pv <= monster.pvMax / 2 && !showVideo) {
@@ -38,14 +36,15 @@ const Monster = () => {
   };
 
   return (
-    <section >
+    <section>
       <div className="container">
         <div className="row">
           <div className="card-monstre col-sm-12" style={{ padding: '20px' }}>
             <div id="monsterCard">
               <div className="text-center">
                 <div className="row align-items-center">
-                  <div className="col-sm-2 offset-sm-3">
+                  {/* Adjusted offset to center the image */}
+                  <div className="col-sm-6 offset-sm-3">
                     <span className="badge badge-danger ml-2 " id="degatSpanMonster"></span>
                     <img className={`img-fluid ${blinkClass}`} src={Broly} alt="monster" />
                   </div>
