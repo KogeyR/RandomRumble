@@ -9,6 +9,7 @@ body{
   background-repeat: no-repeat;
   margin: 0;
   font-family: 'VT323', monospace;
+  overflow: none;
 }
 
 .App-logo {
